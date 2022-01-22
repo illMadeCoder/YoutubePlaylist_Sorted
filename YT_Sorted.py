@@ -36,8 +36,9 @@ n = None
 if len(xPerN) == 2:
     n = int(xPerN[1])
 
-
-mixin = sys.argv[4]
+mixin = "mixin"
+if len(sys.argv) >= 4:
+    mixin = sys.argv[4]
 
 print(playlistIDs)
 # youtube = build(YOUTUBE_API_SERVICE_NAME, 
