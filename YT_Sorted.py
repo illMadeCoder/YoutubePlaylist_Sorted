@@ -82,13 +82,17 @@ for playlistID in playlistIDs:
             break                                            
 
 playlists = list(map(lambda ls: ls[:int(x*(len(ls)/n if n != None else 1))], playlists))
-if mixin == "mixin":
+for playlist in playlists:
+    playlist.sort(key=lambda x : x[1], reverse=True)
+l = len(sum(playlists, []))
+if l > 50:
+    d = int(50/len(playlists))
+    playlists = list(map(lambda ls : ls[:d], playlists))        
+
+if mixin == "mixin":    
     all_video_id_val = sum(playlists, [])                   
     all_video_id_val.sort(key=lambda x : x[1], reverse=True)
-else:
-    for playlist in playlists:
-        playlist.sort(key=lambda x : x[1], reverse=True)
-        print(playlist)
+else:     
     all_video_id_val = sum(playlists, [])                       
 
 print(all_video_id_val[:3])
