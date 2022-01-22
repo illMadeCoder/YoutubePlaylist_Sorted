@@ -31,3 +31,5 @@ playlistids [views|likes|ratio|scatter|random] [x(,n)] [sort|reverse|random]
 create a named playlist (might require creating empty playlist then inserting)
 
 views/average playlist views w/o mixin
+
+limit length

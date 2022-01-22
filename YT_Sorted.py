@@ -40,7 +40,14 @@ mixin = "mixin"
 if len(sys.argv) >= 4:
     mixin = sys.argv[4]
 
-print(playlistIDs)
+def log(_str):
+    original_stdout = sys.stdout 
+    with open("log", "a") as f:
+        sys.stdout = f
+        print(_str)
+        sys.stdout = original_stdout
+
+log(playlistIDs)
 # youtube = build(YOUTUBE_API_SERVICE_NAME, 
 #                 YOUTUBE_API_VERSION, 
 #                 credentials=credentials)
@@ -55,7 +62,6 @@ print(playlistIDs)
 #             'videoId': 'kegNKA3lm9A'
 #         }
 # }}).execute()
-
 nextPageToken = None                
 results = None
 playlists = []
@@ -83,6 +89,7 @@ for playlistID in playlistIDs:
 
 for playlist in playlists:
     playlist.sort(key=lambda x : x[1], reverse=True)
+print(sum(playlists, []))
 playlists = list(map(lambda ls: ls[:int(c*(len(ls)/n if n != None else 1))], playlists))
     
 l = len(sum(playlists, []))
@@ -92,11 +99,11 @@ if l > 50:
     print(d)
     playlists = list(map(lambda ls : ls[:d], playlists))        
 
+all_video_id_val = sum(playlists, [])     
 if mixin == "mixin":    
-    all_video_id_val = sum(playlists, [])                   
     all_video_id_val.sort(key=lambda x : x[1], reverse=True)
-else:     
-    all_video_id_val = sum(playlists, [])                       
+
+print(all_video_id_val)                      
 
 print(all_video_id_val[:3])
 print("http://www.youtube.com/watch_videos?video_ids=" + ','.join(list(map(lambda x : x[0] , all_video_id_val))))
