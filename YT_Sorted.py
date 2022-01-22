@@ -1,7 +1,9 @@
+from datetime import datetime
 from googleapiclient.discovery import build
 # from google_auth_oauthlib.flow import InstalledAppFlow
 # from google.auth.transport.requests import Request
 import sys
+import pprint
 
 # flow = InstalledAppFlow.from_client_secrets_file("client_secrets.json",
 #    scopes=['https://www.googleapis.com/auth/youtube'])
@@ -40,14 +42,18 @@ mixin = "mixin"
 if len(sys.argv) >= 4:
     mixin = sys.argv[4]
 
-def log(_str):
-    original_stdout = sys.stdout 
-    with open("log", "a") as f:
-        sys.stdout = f
-        print(_str)
-        sys.stdout = original_stdout
+log_dict = {}
+def log(**kwargs):
+    for key,val in kwargs.items():        
+        log_dict.update({key:val})
 
-log(playlistIDs)
+def commit_log():
+    with open("log", "a") as f:
+        pp = pprint.PrettyPrinter(indent=4, stream=f)
+        pp.pprint(log_dict)
+
+log(timestamp = datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+log(playlists = playlistIDs)
 # youtube = build(YOUTUBE_API_SERVICE_NAME, 
 #                 YOUTUBE_API_VERSION, 
 #                 credentials=credentials)
@@ -62,8 +68,7 @@ log(playlistIDs)
 #             'videoId': 'kegNKA3lm9A'
 #         }
 # }}).execute()
-nextPageToken = None                
-results = None
+nextPageToken = None            
 playlists = []
 for playlistID in playlistIDs:
     video_id_val = []
@@ -107,3 +112,4 @@ print(all_video_id_val)
 
 print(all_video_id_val[:3])
 print("http://www.youtube.com/watch_videos?video_ids=" + ','.join(list(map(lambda x : x[0] , all_video_id_val))))
+commit_log()
