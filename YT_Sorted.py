@@ -30,11 +30,11 @@ SortByFunctions = {
 
 sortByFunction = SortByFunctions[sortby]
 
-xPerN = sys.argv[3].split(',')
-x = int(xPerN[0])
+cPerN = sys.argv[3].split(',')
+c = int(cPerN[0])
 n = None
-if len(xPerN) == 2:
-    n = int(xPerN[1])
+if len(cPerN) == 2:
+    n = int(cPerN[1])
 
 mixin = "mixin"
 if len(sys.argv) >= 4:
@@ -81,12 +81,15 @@ for playlistID in playlistIDs:
             playlists.append(video_id_val)
             break                                            
 
-playlists = list(map(lambda ls: ls[:int(x*(len(ls)/n if n != None else 1))], playlists))
 for playlist in playlists:
     playlist.sort(key=lambda x : x[1], reverse=True)
+playlists = list(map(lambda ls: ls[:int(c*(len(ls)/n if n != None else 1))], playlists))
+    
 l = len(sum(playlists, []))
+print(l)
 if l > 50:
     d = int(50/len(playlists))
+    print(d)
     playlists = list(map(lambda ls : ls[:d], playlists))        
 
 if mixin == "mixin":    
