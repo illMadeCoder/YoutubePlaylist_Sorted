@@ -1,0 +1,25 @@
+multipleplaylist
+
+online web service
+
+production criteria:
+    custom
+        a combination of views, likes, ratio, scatter, and randomize after
+
+    by views
+    by likes
+    by ratio
+    by scatter
+    by random
+    by sudden drop
+    reverse?
+
+    x per playlist
+    x per n in playlist
+        say x is 3 and n is 10, a playlist with 10 will produce 3 top videos, a playlist with 30 will produce 9 videos
+
+    sort all after
+    reverse?
+    randomize after
+
+create a named playlist
