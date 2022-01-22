@@ -15,8 +15,31 @@ YOUTUBE_API_SERVICE_NAME = 'youtube'
 YOUTUBE_API_VERSION = 'v3'
 youtube = build(YOUTUBE_API_SERVICE_NAME, 
                 YOUTUBE_API_VERSION, 
-                developerKey=DEVELOPER_KEY)                
+                developerKey=DEVELOPER_KEY)  
 
+playlistIDs = sys.argv[1].split(',')
+sortby = sys.argv[2]
+
+SortByFunctions = {
+    'views': lambda x : int(x['statistics']['viewCount']),
+    'likes': lambda x : int(x['statistics']['likeCount']),    
+    'ratio': lambda x : int(x['statistics']['likeCount'])/int(x['statistics']['viewCount']),
+    'scatter' : lambda x : x,
+    'random' : lambda x : x 
+}    
+
+sortByFunction = SortByFunctions[sortby]
+
+xPerN = sys.argv[3].split(',')
+x = int(xPerN[0])
+n = None
+if len(xPerN) == 2:
+    n = int(xPerN[1])
+
+
+mixin = sys.argv[4]
+
+print(playlistIDs)
 # youtube = build(YOUTUBE_API_SERVICE_NAME, 
 #                 YOUTUBE_API_VERSION, 
 #                 credentials=credentials)
@@ -34,27 +57,38 @@ youtube = build(YOUTUBE_API_SERVICE_NAME,
 
 nextPageToken = None                
 results = None
-videos = []
-videoNames_views = []
-while True:
-    results = youtube.playlistItems().list(part='contentDetails', 
-                                            playlistId=sys.argv[1],
-                                            maxResults=50,
-                                            pageToken=nextPageToken).execute()   
-# get video ids
-    video_ids = list(map(lambda x : x['contentDetails']['videoId'], 
-                                    results['items']))    
-    
-    videos = youtube.videos().list(part='statistics,snippet', 
-                                    id=','.join(video_ids)).execute()
+playlists = []
+for playlistID in playlistIDs:
+    video_id_val = []
+    while True:
+        videos = []        
+        results = youtube.playlistItems().list(part='contentDetails', 
+                                                playlistId=playlistID,
+                                                maxResults=50,
+                                                pageToken=nextPageToken).execute()   
+        # get video ids
+        video_ids = list(map(lambda x : x['contentDetails']['videoId'], 
+                                        results['items']))    
+        
+        videos = youtube.videos().list(part='statistics,snippet', 
+                                        id=','.join(video_ids)).execute()
 
-    videoNames_views = videoNames_views + list(map(lambda x: (x['id'], x['snippet']['title'], int(x['statistics']['likeCount'])/int(x['statistics']['viewCount'])), videos['items']))
+        video_id_val = video_id_val + list(map(lambda x: (x['id'], sortByFunction(x)), videos['items']))
 
-    nextPageToken = results.get('nextPageToken')                                                                                                                          
-    if not nextPageToken:
-        break                                            
+        nextPageToken = results.get('nextPageToken')                                                                                                                          
+        if not nextPageToken:            
+            playlists.append(video_id_val)
+            break                                            
 
-           
-videoNames_views.sort(key=lambda x : x[2], reverse=True)
-print(videoNames_views[:3])
-print("http://www.youtube.com/watch_videos?video_ids=" + ','.join(list(map(lambda x : x[0] , videoNames_views[:20]))))
+playlists = list(map(lambda ls: ls[:int(x*(len(ls)/n if n != None else 1))], playlists))
+if mixin == "mixin":
+    all_video_id_val = sum(playlists, [])                   
+    all_video_id_val.sort(key=lambda x : x[1], reverse=True)
+else:
+    for playlist in playlists:
+        playlist.sort(key=lambda x : x[1], reverse=True)
+        print(playlist)
+    all_video_id_val = sum(playlists, [])                       
+
+print(all_video_id_val[:3])
+print("http://www.youtube.com/watch_videos?video_ids=" + ','.join(list(map(lambda x : x[0] , all_video_id_val))))
