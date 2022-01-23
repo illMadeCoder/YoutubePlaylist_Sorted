@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect
 from ytplsorted import ytplsorted
+from config import PORT
 app = Flask("ytplsorted")
 
 # program(argsservice.playlistIDs, 
@@ -19,4 +20,4 @@ def ytplsortedEndpoint():
     return redirect(url, code=302)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=105)
+    app.run(host='0.0.0.0', port=config.PORT)
