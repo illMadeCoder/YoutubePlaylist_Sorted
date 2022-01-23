@@ -29,5 +29,7 @@ def ytplsorted(playlistIDs, sortby, mixin, c, n):
     videosIDs = list(map(lambda video : video["id"], videos))
 
     videosIDsCSV = ','.join(videosIDs)
-    print("http://www.youtube.com/watch_videos?video_ids=" + videosIDsCSV)
+
     logservice.commit_log()
+
+    return ("http://www.youtube.com/watch_videos?video_ids=" + videosIDsCSV)

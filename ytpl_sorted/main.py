@@ -1,8 +1,8 @@
-from ytplsorted import program
+from ytplsorted import ytplsorted
 import argsservice 
 
-program(argsservice.playlistIDs, 
+print(ytplsorted(argsservice.playlistIDs, 
         argsservice.sortby, 
         argsservice.mixin, 
         argsservice.c, 
-        argsservice.n)    
+        argsservice.n))

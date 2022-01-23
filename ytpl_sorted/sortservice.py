@@ -7,4 +7,4 @@ sortByFunctions = {
 }    
 
 def sortVideos(videos, sortBy):
-    return videos.sort(key=sortByFunctions[sortBy], reverse=True)
+    return videos.sort(key=sortByFunctions["ratio" if sortBy == None else sortBy], reverse=True)
