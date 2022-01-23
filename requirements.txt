@@ -1,2 +1,2 @@
-googleapiclient.discovery
+google-api-python-client
 flask

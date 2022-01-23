@@ -1,5 +1,4 @@
 from flask import Flask, request, redirect
-from numpy import sort
 from ytplsorted import ytplsorted
 app = Flask("ytplsorted")
 
