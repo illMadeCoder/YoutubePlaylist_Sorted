@@ -7,6 +7,14 @@ youtube = build(YOUTUBE_API_SERVICE_NAME,
                 YOUTUBE_API_VERSION, 
                 developerKey=config.DEVELOPER_KEY)  
 
+def playlistIDToPlaylist(playlistID):
+    print(playlistID)
+    result = youtube.playlists().list(
+        part='snippet', 
+        id=playlistID,
+        maxResults=50).execute()
+    return result["items"][0]["snippet"]
+
 
 def playlistIDToVideos(playlistID):
     playlistVideos = []
