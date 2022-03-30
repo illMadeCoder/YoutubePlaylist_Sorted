@@ -19,7 +19,7 @@ This application can be run as a commandline application (main.py), but is prima
 ```
 DEVELOPER_KEY = <A Youtube Developer Key>
 PORT = <The Port you'd like to run it on locally>
-````
+```
 5. python ytpl_sorted/webapi.py
 
 ## With Docker
@@ -30,7 +30,7 @@ PORT = <The Port you'd like to run it on locally>
 ```
 DEVELOPER_KEY = <A Youtube Developer Key>
 PORT = <virtual port>
-'''
+```
 
 ## Using the Youtube Mixtape Endpoint
 Once stood up hit the endpoint like so:
