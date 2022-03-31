@@ -34,8 +34,16 @@ PORT = <virtual port>
 
 ## Using the Youtube Mixtape Endpoint
 Once stood up hit the endpoint like so:
-- Find some user made (not youtube generated) playlist on Youtube, 
-- look for the playlist ID at the end of the URL,
-- copy the playlist id and insert it at the end of the following URL http://localhost:8000/ytplsorted?playlistIDs= where the 8000 is replaced by your selected port,
-- continue this process via a comma seperated list for additional playlists.
-- Example: http://localhost:8000/ytplsorted?playlistIDs=PLvNp0Boas721Oudz2jPmLckTw2Efa1P_8,PL7E5D665B1A8B6898
+1. Find some user made (not youtube generated) playlist on Youtube, 
+2. look for the playlist ID at the end of the URL,
+3. copy the playlist id and insert it at the end of the following URL http://localhost:8000/ytplsorted?playlistIDs= where the 8000 is replaced by your selected port,
+4. continue this process via a comma seperated list for additional playlists.
+Example: http://localhost:8000/ytplsorted?playlistIDs=PLvNp0Boas721Oudz2jPmLckTw2Efa1P_8,PL7E5D665B1A8B6898
+
+  
+## Fullstack 
+### Setup
+1. Follow the steps above setup the backend.
+2. Follow the steps to setup the frontend located in the frontend repo here https://github.com/illmadecoder/ytpl_sorted_chrome_extension
+3. While the Web API is running locally, point the frontend to the Web API's local URL.
+### Demo
