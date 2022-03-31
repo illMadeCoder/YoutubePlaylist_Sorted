@@ -25,7 +25,7 @@ PORT = <The Port you'd like to run it on locally>
 ## With Docker
 1. Clone the repository locally
 2. docker build .
-3. docker run -dp <host port>:<virtual port> <name of image>
+3. docker run -dp \<host port>:\<virtual port> <name of image>
 4. ensure the config.py has been setup in ytpl_sorted like so:
 ```
 DEVELOPER_KEY = <A Youtube Developer Key>
