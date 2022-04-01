@@ -46,4 +46,3 @@ Example: http://localhost:8000/ytplsorted?playlistIDs=PLvNp0Boas721Oudz2jPmLckTw
 1. Follow the steps above setup the backend.
 2. Follow the steps to setup the frontend located in the frontend repo here https://github.com/illmadecoder/ytpl_sorted_chrome_extension
 3. While the Web API is running locally, point the frontend to the Web API's local URL.
-### Demo
